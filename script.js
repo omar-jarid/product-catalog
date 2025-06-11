@@ -47,7 +47,10 @@ const updateTotal = () => {}
 const remove = (productId) => {
     const itemIndex = cart.findIndex(item => item.id === productId);
     if (itemIndex > -1) {
-        cart.splice(itemIndex, 1);
+        if (cart[itemIndex].quantity > 1) {
+            cart[itemIndex].quantity--;
+        } else { cart.splice(itemIndex, 1); }
+
         updateCart();
         updateTotal();
     } else { console.error("Item not found in cart"); }
