@@ -144,6 +144,14 @@ button {
     font-size: 20px;
 }
 
+#clear-cart {
+    background-color: red;
+    color: white;
+    width: 100%;
+    max-width: 250px;
+    margin-top: 20px;
+}
+
 /* -- MEDIA QUERIES -- */
 @media screen and (min-width: 768px) {
     header {

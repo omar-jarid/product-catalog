@@ -110,10 +110,17 @@ const addToCart = (productId) => {
             }
         }
     }
-    
+
     updateCart();
     updateTotal();
 };
+
+// Questa funzione cancella il carrello.
+const clearCart = () => {
+    cart.length = 0; // Svuota l'array del carrello
+    updateCart(); // Aggiorna la visualizzazione del carrello
+    updateTotal(); // Aggiorna il totale
+}
 
 // Catalogo dei prodotti
 const productCatalog = [
