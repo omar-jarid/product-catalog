@@ -122,6 +122,41 @@ const clearCart = () => {
     updateTotal(); // Aggiorna il totale
 }
 
+// Questa funzione cerca un prodotto nel catalogo.
+const filterProducts = () => {
+    const text = document.getElementById("search-input").value.trim();
+    const searchText = text.toLowerCase();
+    const filteredProducts = [];
+    for (let i = 0; i < productCatalog.length; i++) {
+        const product = productCatalog[i];
+        if (product.name.toLowerCase().includes(searchText) || product.category.toLowerCase().includes(searchText)) filteredProducts.push(product);
+    }
+
+    // Mostra i prodotti filtrati
+    const catalogContainer = document.getElementById("product-list");
+    catalogContainer.innerHTML = "";
+
+    if (!filteredProducts.length) {
+        catalogContainer.innerHTML = "<p>No products found.</p>";
+        return;
+    }
+
+    for (let i = 0; i < filteredProducts.length; i++) {
+        const product = filteredProducts[i];
+        const productCard = document.createElement("div");
+        productCard.className = "product-card";
+        productCard.innerHTML = `
+            <img class="product-picture" src="${product.imageUrl}" alt="${product.name}">
+            <h3>${product.name}</h3>
+            <div class="product-details">
+                <p><span class="quantity">€${product.price.toFixed(2)}</span></p>
+                <button class="product-button" data-id="${product.id}" onclick="addToCart(${product.id})">Add to Cart</button>
+            </div>
+        `;
+        catalogContainer.appendChild(productCard);
+    }
+};
+
 // Catalogo dei prodotti
 const productCatalog = [
     { id: 1, name: "Laptop", price: 999.99, category: "Electronics", imageUrl: "assets/laptop.webp" },
