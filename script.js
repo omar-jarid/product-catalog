@@ -42,7 +42,12 @@ const updateCart = () => {
     });
 }
 
-const updateTotal = () => {}
+const updateTotal = () => {
+    let total = 0;
+    cart.forEach(item => total += item.price * item.quantity);
+    const totalElement = document.getElementById("total");
+    totalElement.textContent = total.toFixed(2);
+}
 
 const remove = (productId) => {
     const itemIndex = cart.findIndex(item => item.id === productId);
