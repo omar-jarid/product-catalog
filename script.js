@@ -1,6 +1,16 @@
+// Questa funzione mostra il catalogo dei prodotti.
 const showCatalog = () => {
+    // Seleziona il contenitore del catalogo e svuota il suo contenuto precedente.
     const catalogContainer = document.getElementById("product-list");
-    catalogContainer.innerHTML = ""; // Clear previous content
+    catalogContainer.innerHTML = "";
+    
+    // Se il catalogo è vuoto, mostra un messaggio.
+    if (!productCatalog.length) {
+        catalogContainer.innerHTML = "<p>Catalog is empty.</p>";
+        return;
+    }
+
+    // Itera su ogni prodotto nel catalogo e crea un elemento per ciascuno.
     productCatalog.forEach(product => {
         const productCard = document.createElement("div");
         productCard.className = "product-card";
@@ -16,14 +26,19 @@ const showCatalog = () => {
     });
 }
 
+// Questa funzione mostra il carrello degli acquisti.
 const updateCart = () => {
+    // Seleziona il contenitore del carrello e svuota il suo contenuto precedente.
     const cartContainer = document.getElementById("cart-items");
-    cartContainer.innerHTML = ""; // Clear previous content
+    cartContainer.innerHTML = "";
+
+    // Se il carrello è vuoto, mostra un messaggio.
     if (!cart.length) {
         cartContainer.innerHTML = "<p>Your cart is empty.</p>";
         return;
     }
 
+    // Itera su ogni elemento del carrello e crea un elemento per ciascuno.
     cart.forEach(item => {
         const cartItem = document.createElement("div");
         cartItem.className = "cart-item";
@@ -42,6 +57,7 @@ const updateCart = () => {
     });
 }
 
+// Questa funzione aggiorna il totale del carrello.
 const updateTotal = () => {
     let total = 0;
     cart.forEach(item => total += item.price * item.quantity);
@@ -49,40 +65,57 @@ const updateTotal = () => {
     totalElement.textContent = total.toFixed(2);
 }
 
+// Questa funzione rimuove un prodotto dal carrello.
 const remove = (productId) => {
-    const itemIndex = cart.findIndex(item => item.id === productId);
-    if (itemIndex > -1) {
-        if (cart[itemIndex].quantity > 1) {
-            cart[itemIndex].quantity--;
-        } else { cart.splice(itemIndex, 1); }
+    cart.forEach((item, index) => {
+        if (item.id === productId) {
+            // Se la quantità è maggiore di 1, decrementa la quantità.
+            if (item.quantity > 1) {
+                item.quantity--;
+            } else {
+                // Altrimenti, rimuovi l'elemento dal carrello.
+                cart.splice(index, 1);
+            }
 
-        updateCart();
-        updateTotal();
-    } else { console.error("Item not found in cart"); }
+            updateCart();
+            updateTotal();
+        } else { console.error("Item not found in cart"); }
+    });
 }
 
+// Questa funzione aggiunge un prodotto al carrello.
 const addToCart = (productId) => {
-    const product = productCatalog.find(p => p.id === productId);
-    if (product) {
-        const cartItem = cart.find(item => item.id === productId);
-        if (cartItem) { 
-            cartItem.quantity++;
-        } else { 
-            cart.push({ 
-                id: product.id,
-                name: product.name,
-                price: product.price,
-                category: product.category,
-                imageUrl: product.imageUrl, 
-                quantity: 1 
-            }); 
+    let found = false;
+    for (let i = 0; i < cart.length; i++) {
+        if (cart[i].id === productId) {
+            cart[i].quantity++;
+            found = true;
+            break;
         }
+    }
 
-        updateCart();
-        updateTotal();
-    } else { console.error("Product not found"); }
-}
+    if (!found) {
+        // Cerca il prodotto nel catalogo
+        for (let j = 0; j < productCatalog.length; j++) {
+            if (productCatalog[j].id === productId) {
+                cart.push({
+                    id: productCatalog[j].id,
+                    name: productCatalog[j].name,
+                    price: productCatalog[j].price,
+                    category: productCatalog[j].category,
+                    imageUrl: productCatalog[j].imageUrl,
+                    quantity: 1
+                });
+                break;
+            }
+        }
+    }
+    
+    updateCart();
+    updateTotal();
+};
 
+// Catalogo dei prodotti
 const productCatalog = [
     { id: 1, name: "Laptop", price: 999.99, category: "Electronics", imageUrl: "assets/laptop.webp" },
     { id: 2, name: "Smartphone", price: 499.99, category: "Electronics", imageUrl: "assets/smartphone.webp" },
@@ -96,7 +129,9 @@ const productCatalog = [
     { id: 10, name: "Wireless Charger", price: 29.99, category: "Electronics", imageUrl: "assets/wireless-charger.webp" }
 ];
 
+// Inizializza il carrello come un array vuoto.
 const cart = [];
 
+// Mostra il catalogo dei prodotti all'avvio della pagina.
 showCatalog();
 
