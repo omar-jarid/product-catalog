@@ -19,7 +19,7 @@ Questo progetto è una semplice web app di un e-commerce, con catalogo prodotti 
    L’utente può digitare nella barra di ricerca e cliccare il pulsante "Search" per filtrare i prodotti. La funzione `filterProducts()` aggiorna la griglia mostrando solo le card dei prodotti che corrispondono al testo inserito, mostrando un messaggio se non ci sono corrispondenze.
 
 3. **Gestione carrello:**  
-   Cliccando "Add to Cart" su un prodotto, questo viene aggiunto al carrello (array `cart`). Se il prodotto è già presente, ne aumenta la quantità, aggiornando il subtotale per ogni prodotto e il totale complessivo. L'utente può inoltre svuotare il carrello con il pulsante "Clear Cart".
+   Cliccando "Add to Cart" su un prodotto, questo viene aggiunto al carrello (array `cart`). Se il prodotto è già presente, ne aumenta la quantità, aggiornando il subtotale per ogni prodotto e il totale complessivo. L'utente può inoltre rimuovere uno o più elementi dal carrello (se l'elemento è presente più di una volta, ne viene rimosso uno, altrimenti viene proprio rimosso totalmente, e subtotale e totale vengono ricalcolati) e svuotare il carrello con il pulsante "Clear Cart".
 
 4. **Navigazione:**  
    Il menu di navigazione usa ancore HTML (`#products`, `#about`, `#contact`) e lo scroll è animato tramite la regola CSS `scroll-behavior: smooth`.
