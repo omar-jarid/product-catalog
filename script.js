@@ -8,7 +8,7 @@ const showCatalog = () => {
             <img class="product-picture" src="${product.imageUrl}" alt="${product.name}">
             <h3>${product.name}</h3>
             <div class="product-details">
-                <p>€${product.price.toFixed(2)}</p>
+                <p><span class="quantity">€${product.price.toFixed(2)}</span></p>
                 <button class="product-button" data-id="${product.id}" onclick="addToCart(${product.id})">Add to Cart</button>
             </div>
         `;
@@ -31,10 +31,10 @@ const updateCart = () => {
             <img class="cart-item-picture" src="${item.imageUrl}" alt="${item.name}">
             <div class="cart-item-details">
                 <h3>${item.name}</h3>
-                <p>Quantity: ${item.quantity}</p>
+                <p class="quantity-p">Quantity: <span class="quantity">${item.quantity}</span></p>
             </div>
             <div class="cart-item-details">
-                <p>Subtotal: €${(item.price * item.quantity).toFixed(2)}</p>
+                <p>Subtotal: <span class="quantity">€${(item.price * item.quantity).toFixed(2)}</span></p>
                 <button class="cart-item-button" data-id="${item.id}" onclick="remove(${item.id})">Remove</button>
             </div>
         `;

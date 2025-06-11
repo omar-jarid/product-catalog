@@ -2,12 +2,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    
 }
 
-body, footer {
-    font-family: Arial, sans-serif;
+body {
     background-color: #f4f4f4;
     color: #333;
+}
+
+header, main, footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -58,7 +62,6 @@ button {
 }
 
 .product-picture, .cart-item-picture {
-    width: 250px;
     height: 250px;
     margin-bottom: 10px;
 }
@@ -73,7 +76,8 @@ button {
 }
 
 .product-card, .cart-item {
-    width: 250px;
+    max-width: 250px;
+    width: 100%;
     height: 400px;
     background-color: gold;
     border-radius: 10px;
@@ -86,9 +90,13 @@ button {
     margin-bottom: 20px;
 }
 
+.product-picture, .cart-item-picture, .product-details, .cart-item-details {
+    width: 100%;
+    max-width: 250px;
+}
+
 .centered-section {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -96,11 +104,31 @@ button {
     margin-bottom: 20px;
 }
 
-.products-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+#products.centered-section, #cart.centered-section {
+    display: block;
+    align-items: unset;
+    justify-content: unset;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+#products.centered-section h2, #cart.centered-section h2 {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.product-list, .cart-items {
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-items: center;
 }
 
 .input-container {
@@ -118,4 +146,32 @@ button {
     align-items: center;
     gap: 8px;
     margin-top: 20px;
+}
+
+.center { 
+    margin-top: 10px;
+    text-align: center; 
+}
+
+.quantity-p { text-align: end; }
+
+.quantity { 
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* -- MEDIA QUERIES -- */
+@media screen and (min-width: 768px) {
+    header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .product-list, .cart-items {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        justify-items: center;
+    }
 }
