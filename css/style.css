@@ -32,7 +32,10 @@ ul {
 a { 
     text-decoration: none; 
     color: green;
+    transition: color 0.2s;
 }
+
+a:hover { color: yellowgreen; }
 
 input {
     width: 100%;
@@ -52,15 +55,25 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    transition: background 0.2s, transform 0.1s;
+}
+
+button:hover {
+    background-color: #228B22;
+    transform: scale(1.04);
 }
 
 .product-picture, .cart-item-picture {
     height: 250px;
     margin-bottom: 10px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 .product-details, .cart-item-details {
-    width: 250px;
+    width: 100%;
+    max-width: 250px;
     height: 50px;
     display: flex;
     justify-content: center;
@@ -81,11 +94,6 @@ button {
     padding: 20px;
     gap: 10px;
     margin-bottom: 20px;
-}
-
-.product-picture, .cart-item-picture, .product-details, .cart-item-details {
-    width: 100%;
-    max-width: 250px;
 }
 
 .centered-section {
@@ -116,7 +124,7 @@ button {
 
 .product-list, .cart-items {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
     width: 100%;
     max-width: 1200px;
@@ -144,11 +152,21 @@ button {
 }
 
 #clear-cart {
-    background-color: red;
+    background-color: #b30000;
     color: white;
     width: 100%;
     max-width: 250px;
     margin-top: 20px;
+    transition: background 0.2s;
+}
+
+#clear-cart:hover { background-color: red; }
+
+/* -- ANIMATIONS -- */
+@keyframes link-pulse {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(0.92); }
+    100% { transform: scale(1); }
 }
 
 /* -- MEDIA QUERIES -- */
@@ -158,11 +176,5 @@ button {
         justify-content: space-between;
         align-items: center;
         padding: 0 20px;
-    }
-
-    .product-list, .cart-items {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-        justify-items: center;
     }
 }
